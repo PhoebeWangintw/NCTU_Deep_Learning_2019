@@ -65,6 +65,7 @@ def plot_data(X, y, pred_y, save_img_name):
     ax[1].set_aspect("equal")
     plt.savefig(save_img_name)
     plt.show()
+    plt.clf()
 
 
 # In[5]:
@@ -204,6 +205,7 @@ plt.plot(loss)
 plt.title("Linear loss")
 plt.savefig("linear_loss.png")
 plt.show()
+plt.clf()
 
 
 # In[8]:
@@ -225,6 +227,7 @@ plt.plot(loss)
 plt.title("XOR loss")
 plt.savefig("XOR_loss.png")
 plt.show()
+plt.clf()
 
 
 # In[ ]:

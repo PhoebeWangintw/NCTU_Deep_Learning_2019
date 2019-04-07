@@ -7,11 +7,9 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 from torchvision import datasets, transforms
-# from tensorboardX import SummaryWriter
 import matplotlib.pyplot as plt
 import dataloader
 
-# writer = SummaryWriter('runs/exp-1')
 device = torch.device("cuda")
 
 # ref: https://leonardoaraujosantos.gitbooks.io/artificial-inteligence/content/pytorch/dataloader-and-datasets.html
@@ -39,9 +37,6 @@ def test_acc(model, loader):
     
     return (correct / len(loader.dataset)) * 100 
 
-
-def calculate_padding(W, K, S, O):
-    return ((O-1)*S+K-W) / 2
 
 class DeepConvNet(nn.Module):
     def __init__(self, activation_func='ELU', param=1.0):
@@ -96,18 +91,13 @@ class DeepConvNet(nn.Module):
         )
         
     def forward(self, x):
-#         print(x.shape)
         x = self.conv1(x)
-#         print(x.shape)
         x = self.conv2(x)
-#         print(x.shape)
         x = self.conv3(x)
-#         print(x.shape)
         x = self.conv4(x)
-#         print(x.shape)
         x = x.view(-1, 200*3*46)
         x = self.linear(x)
-#         print(x.shape)
+
         return F.log_softmax(x)
 
 
@@ -191,7 +181,6 @@ if __name__ == '__main__':
     if train:
         iteration = 800
         activation_func = ['ELU', 'ReLu', 'LeakyReLu']
-        # activation_func = ['ELU']
 #         params = [[1.0, 0.9, 0.8, 0.7], [0.0], [0.01, 0.02, 0.03, 0.04]]
 #         params = [[0.9], [0.0], [0.03]]
         params = [[0.9], [0.0], [0.04]]
@@ -266,35 +255,6 @@ if __name__ == '__main__':
         plt.cla()
         plt.close()
         
-#         fig, ax = plt.subplots(nrows=2, ncols=4, figsize=(25, 10))
-#         ax[0][0].plot(train_acc_all[0])
-#         ax[0][0].plot(acc_all[0])
-#         ax[0][0].set_title("ELU: " + str(params[0][0]))
-#         ax[0][1].plot(train_acc_all[1])
-#         ax[0][1].plot(acc_all[1])
-#         ax[0][1].set_title("ELU: " + str(params[0][1]))
-#         ax[0][2].plot(train_acc_all[2])
-#         ax[0][2].plot(acc_all[2])
-#         ax[0][2].set_title("ELU: " + str(params[0][2]))
-#         ax[0][3].plot(train_acc_all[3])
-#         ax[0][3].plot(acc_all[3])
-#         ax[0][3].set_title("ELU: " + str(params[0][3]))
-#         ax[1][0].plot(train_acc_all[4])
-#         ax[1][0].plot(acc_all[4])
-#         ax[1][0].set_title("ReLU: " + str(params[1][0]))
-#         ax[1][1].plot(train_acc_all[5])
-#         ax[1][1].plot(acc_all[5])
-#         ax[1][1].set_title("Leaky ReLU: " + str(params[2][0]))
-#         ax[1][2].plot(train_acc_all[6])
-#         ax[1][2].plot(acc_all[6])
-#         ax[1][2].set_title("Leaky ReLU: " + str(params[2][1]))
-#         ax[1][3].plot(train_acc_all[7])
-#         ax[1][3].plot(acc_all[7])
-#         ax[1][3].set_title("Leaky ReLU: " + str(params[2][2]))
-#         plt.savefig("DeepConvNet.png")
-#         plt.clf()
-#         plt.cla()
-#         plt.close()
     else:
         activation_func = ['ELU', 'ReLu', 'LeakyReLu']
         params = [0.9, 0.0, 0.03]

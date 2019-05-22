@@ -263,15 +263,7 @@ if __name__ == "__main__":
                 torch.save(netG.state_dict(), './model_weight2/netG_epoch_%d.pth' % (epoch))
                 torch.save(netDQ.state_dict(), './model_weight2/discriminator_epoch_%d.pth' % (epoch))
     else:
-        epoch = 60
-#         torch.manual_seed(999)
-#         fixed_noise = torch.randn(100, 54, 1, 1)
-#         row = torch.LongTensor(list(range(100)))
-#         col = torch.LongTensor(list(range(10))*10)
-#         one_hot_fix = torch.zeros(100, 10)
-#         one_hot_fix[row, col] = 1
-#         one_hot_fix = one_hot_fix.view(100, 10, 1, 1)
-#         fixed_noise = torch.cat((fixed_noise, one_hot_fix.float()), dim=1).to(device)
+        epoch = 80
         
         netG.load_state_dict(torch.load('./model_weight2/netG_epoch_%d.pth' % (epoch)))
         netDQ.load_state_dict(torch.load('./model_weight2/discriminator_epoch_%d.pth' % (epoch)))
